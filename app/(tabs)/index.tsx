@@ -3,43 +3,42 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 
-import { useWeather, useUserLocation } from '../src/hooks/index';
-import { getWeatherInterpretation } from '../src/utils/weatherInterpretation';
-import { DetailItem } from '../src/components/DetailItem';
+import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
+import { useWeatherContext } from '../WeatherContext';
+import { DetailItem } from '../../src/components/DetailItem';
 
 export default function Page() {
-  const {
-    coordinates,
-    errorMsg: locationErrorMsg,
-    loading: locationLoading,
-  } = useUserLocation();
-
-  const { weatherData,
-    errorMsg: weatherErrorMsg,
-    loading: weatherLoading,
-  } = useWeather(coordinates?.latitude ?? null, coordinates?.longitude ?? null);
+  const { weatherData, loading, errorMsg } = useWeatherContext();
 
   const currentWeather = getWeatherInterpretation(
     weatherData?.current.weather_code ?? 0,
     weatherData?.current.is_day ?? 1
   );
 
-  if (locationLoading || weatherLoading) {
+  if (loading) {
     return (
-      <View>
-        <Text>LOADING...</Text>
-      </View>
+      <LinearGradient 
+        colors={currentWeather.gradient} 
+        style={styles.container}
+      >
+        <View style={styles.container}>
+          <Text style={styles.mainInfo}>LOADING...</Text>
+        </View>
+      </LinearGradient>
     );
   };
 
-  if (locationErrorMsg || weatherErrorMsg) {
-    console.log(locationErrorMsg, 'index error');
-
+  if (errorMsg) {
     return (
-      <View>
-        <Text>ERROR!!!</Text>
-        <Text>Please, reload your App</Text>
-      </View>
+      <LinearGradient 
+        colors={currentWeather.gradient} 
+        style={styles.container}
+      >
+        <View>
+          <Text style={styles.mainInfo}>ERROR!!!</Text>
+          <Text style={styles.mainInfo}>Please, reload your App</Text>
+        </View>
+      </LinearGradient>
     );
   };
 

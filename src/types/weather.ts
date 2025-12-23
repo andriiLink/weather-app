@@ -14,3 +14,9 @@ export type WeatherDataType = {
     weather_code: number[];
   };
 }
+
+export interface WeatherContextType {
+  weatherData: WeatherDataType | null,
+  loading: boolean,
+  errorMsg: string | null,
+}
