@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 
-import { useWeatherContext } from '../WeatherContext';
-import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation'
-import { BlurView } from 'expo-blur';
 import { DetailItem } from '@/src/components/DetailItem';
+import { BlurView } from 'expo-blur';
+import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
+import { useWeatherContext } from '../../src/hooks/useWeatherContext';
 
 const OtherDaysWeather = () => {
   const { weatherData } = useWeatherContext();

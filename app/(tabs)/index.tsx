@@ -1,24 +1,34 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, Text, View } from "react-native";
 
-import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
-import { useWeatherContext } from '../WeatherContext';
 import { DetailItem } from '../../src/components/DetailItem';
+import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
+import { useWeatherContext } from '../../src/hooks/useWeatherContext';
+import useSettings from '@/src/hooks/useSettings';
+import { TemperatureMeasures } from '@/src/types/settingsContextType';
 
 export default function Page() {
   const { weatherData, loading, errorMsg } = useWeatherContext();
+  const {
+    language,
+    windSpeed,
+    humidity,
+    temperatureMeasure,
+  } = useSettings();
 
   const currentWeather = getWeatherInterpretation(
     weatherData?.current.weather_code ?? 0,
     weatherData?.current.is_day ?? 1
   );
 
+  const humidityOrWindSpeedOn = humidity || windSpeed;
+
   if (loading) {
     return (
-      <LinearGradient 
-        colors={currentWeather.gradient} 
+      <LinearGradient
+        colors={currentWeather.gradient}
         style={styles.container}
       >
         <View style={styles.container}>
@@ -30,8 +40,8 @@ export default function Page() {
 
   if (errorMsg) {
     return (
-      <LinearGradient 
-        colors={currentWeather.gradient} 
+      <LinearGradient
+        colors={currentWeather.gradient}
         style={styles.container}
       >
         <View>
@@ -44,13 +54,28 @@ export default function Page() {
 
   return (
     <LinearGradient colors={currentWeather.gradient} style={styles.container}>
-        <View style={styles.mainInfo}>
-          <MaterialCommunityIcons name={currentWeather.icon as any} size={25} color="white" />
-          <View style={styles.textWrapper}>
-            <Text style={styles.tempText}>{Math.round(weatherData?.current.temperature_2m ?? 0)}°C</Text>
-            <Text style={styles.conditionText}>{currentWeather.label}</Text>
-          </View>
+      <View style={styles.mainInfo}>
+        <MaterialCommunityIcons name={currentWeather.icon as any} size={25} color="white" />
+        <View style={styles.textWrapper}>
+          {temperatureMeasure === TemperatureMeasures.Celsius ? (
+            <Text style={styles.tempText}>
+              {Math.round(weatherData?.current.temperature_2m ?? 0)}°C
+            </Text>
+          ) : (
+            temperatureMeasure === TemperatureMeasures.Fahrenheit ? (
+              <Text style={styles.tempText}>
+                {((Math.round(weatherData?.current.temperature_2m ?? 0)) * 1.8) + 32}°F
+              </Text>
+            ) : (
+              <Text style={styles.tempText}>
+                {(Math.round(weatherData?.current.temperature_2m ?? 0) + 273.15)}K
+              </Text>
+            )
+          )}
+          <Text style={styles.conditionText}>{currentWeather.label}</Text>
         </View>
+      </View>
+      {humidityOrWindSpeedOn && (
         <View style={styles.glassCardWrapper}>
           <LinearGradient
             colors={['rgba(255,255,255,0.5)', 'rgba(255,255,255,0.05)']}
@@ -58,30 +83,38 @@ export default function Page() {
             end={{ x: 1, y: 1 }}
             style={styles.borderWrapper}
           >
-            <BlurView 
-              intensity={30} 
-              tint="light" 
+
+            <BlurView
+              intensity={30}
+              tint="light"
               style={[
                 styles.glassCard,
-                {shadowColor: weatherData?.current.is_day === 0 ? "#000" : "#fff",}
+                { shadowColor: weatherData?.current.is_day === 0 ? "#000" : "#fff", }
               ]}
             >
               <View style={styles.reflection} />
               <View>
-                <DetailItem
-                  label="Вологість"
-                  value={`${weatherData?.current.relative_humidity_2m}%`}
-                  icon="water-percent"
-                />
-                <DetailItem
-                  label="Вітер"
-                  value={`${weatherData?.current.wind_speed_10m} км/год`}
-                  icon="weather-windy"
-                />
+                {humidity && (
+                  <DetailItem
+                    label="Вологість"
+                    value={`${weatherData?.current.relative_humidity_2m}%`}
+                    icon="water-percent"
+                  />
+                )}
+
+                {windSpeed && (
+                  <DetailItem
+                    label="Вітер"
+                    value={`${weatherData?.current.wind_speed_10m} км/год`}
+                    icon="weather-windy"
+                  />
+                )}
               </View>
             </BlurView>
+
           </LinearGradient>
         </View>
+      )}
     </LinearGradient>
   );
 }

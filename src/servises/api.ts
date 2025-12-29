@@ -1,3 +1,4 @@
+// base url is the same in any fetch request
 const BASE_URL = `https://api.open-meteo.com/v1/forecast`;
 
 const getDataFromAPI = async (latitude: number | null, longitude: number | null) => {

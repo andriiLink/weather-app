@@ -1,10 +1,10 @@
-import { ImageBackground, StyleSheet } from 'react-native';
-import { Tabs } from "expo-router";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import { Tabs } from "expo-router";
+import { ImageBackground, StyleSheet } from 'react-native';
 
 import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
-import useWeatherContext from '../WeatherContext';
+import useWeatherContext from '../../src/hooks/useWeatherContext';
 
 export default function TabsLayout() {
   const { weatherData } = useWeatherContext();

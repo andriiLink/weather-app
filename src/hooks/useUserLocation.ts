@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { LocationType } from '../types/location';
 
+// custom hook for getting location of our user
 export const useUserLocation = () => {
   const [coordinates, setCoordinates] = useState<LocationType | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);

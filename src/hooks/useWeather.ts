@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { WeatherAPI } from '../servises/api';
 import { WeatherDataType } from '../types/weather';
 
+// logic for getting info about weather
 export const useWeather = (latitude: number | null, longitude: number | null) => {
   const [weatherData, setWeatherData] = useState<WeatherDataType | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
