@@ -55,15 +55,22 @@ const Settings = () => {
         style={styles.container}
       >
         <View>
-          <Text style={styles.mainText}>{t('common.settings')}</Text>
+          <Text style={[styles.mainText, { color: currentWeather.textColor }]}>
+            {t('common.settings')}
+          </Text>
         </View>
 
         <TouchableOpacity
           onPress={() => setLanguageModalVisibility(true)}
           style={styles.languageWrapper}>
-          <BlurView style={styles.glassCard}>
+          <BlurView style={[
+            styles.glassCard,
+            { shadowColor: weatherData?.current.is_day === 0 ? "#000" : "#fff", }
+          ]}>
             <View style={styles.languageContent}>
-              <Text style={styles.languageText}>{t('settings.language')}:</Text>
+              <Text style={[styles.languageText, { color: currentWeather.textColor }]}>
+                {t('settings.language')}:
+              </Text>
               {language === Languages.UA ? (
                 <Image source={require('../../assets/images/langUa.png')} style={styles.flagImg} />
               ) : (
@@ -84,8 +91,13 @@ const Settings = () => {
             style={styles.modalOverlay}
           >
             <View style={styles.modalWindow}>
-              <BlurView style={styles.glassCard}>
-                <Text style={styles.mainText}>{t('settings.select_language')}:</Text>
+              <BlurView style={[
+                styles.glassCard,
+                { shadowColor: weatherData?.current.is_day === 0 ? "#000" : "#fff", }
+              ]}>
+                <Text style={[styles.mainText, { color: currentWeather.textColor }]}>
+                  {t('settings.select_language')}:
+                </Text>
                 <TouchableOpacity
                   onPress={() => {
                     handleChangeLanguage(Languages.UA);
@@ -114,10 +126,14 @@ const Settings = () => {
 
         <View style={styles.optionsWrapper}>
           <BlurView style={styles.glassCard}>
-            <Text style={styles.optionsToShowText}>{t('settings.display_params')}:</Text>
+            <Text style={[styles.optionsToShowText, { color: currentWeather.textColor }]}>
+              {t('settings.display_params')}:
+            </Text>
 
             <View style={styles.windSpeedWrapper}>
-              <Text style={styles.optionsText}>{t('settings.wind_speed')}:</Text>
+              <Text style={[styles.optionsText, { color: currentWeather.textColor }]}>
+                {t('settings.wind_speed')}:
+              </Text>
               <Checkbox
                 value={windSpeed}
                 onValueChange={handleToggleWindSpeed}
@@ -127,7 +143,9 @@ const Settings = () => {
             </View>
 
             <View style={styles.humidityWrapper}>
-              <Text style={styles.optionsText}>{t('common.humidity')}:</Text>
+              <Text style={[styles.optionsText, { color: currentWeather.textColor }]}>
+                {t('common.humidity')}:
+              </Text>
               <Checkbox
                 value={humidity}
                 onValueChange={handleToggleHumidity}
@@ -136,7 +154,9 @@ const Settings = () => {
               />
             </View>
 
-            <Text style={styles.optionsText}>{t('settings.temp_format')}:</Text>
+            <Text style={[styles.optionsText, { color: currentWeather.textColor }]}>
+              {t('settings.temp_format')}:
+            </Text>
             <SegmentedControl
               values={['°C', '°F', 'K']}
               selectedIndex={measureToIndex[temperatureMeasure as keyof typeof measureToIndex]}
@@ -184,7 +204,6 @@ const styles = StyleSheet.create({
     top: 10,
     left: 20,
 
-    color: '#fff',
     fontSize: 27,
     fontWeight: 600,
   },
@@ -235,7 +254,6 @@ const styles = StyleSheet.create({
   optionsToShowText: {
     top: 6,
 
-    color: '#fff',
     fontSize: 18,
     fontWeight: 600,
 
@@ -246,7 +264,6 @@ const styles = StyleSheet.create({
     top: 6,
     left: 20,
 
-    color: '#fff',
     fontSize: 18,
     fontWeight: 600,
 

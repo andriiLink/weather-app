@@ -40,26 +40,24 @@ const OtherDaysWeather = () => {
       style={styles.container}
     >
       <View>
-        <Text style={styles.title}>{t('weather.temp_forecast')}</Text>
+        <Text style={[styles.title, {color: currentWeather.textColor}]}>
+          {t('weather.temp_forecast')}
+        </Text>
 
         <LineChart
           data={chartData}
           height={150}
           thickness={3}
-          color="#fff"
+          color="#777"
           hideRules
           hideYAxisText
           yAxisColor="transparent"
-          xAxisColor="transparent"
-          areaChart
 
           showValuesAsDataPointsText
           textColor="white"
           textFontSize={20}
           textShiftY={-10}
-          textShiftX={-5}
-          startFillColor="rgba(255, 255, 255, 0.3)"
-          endFillColor="transparent"
+          textShiftX={10}
           curved
           dataPointsColor="#fff"
         />
@@ -86,7 +84,9 @@ const OtherDaysWeather = () => {
                   <View style={styles.reflection} />
 
                   <View>
-                    <Text style={styles.dateText}>{day.date}</Text>
+                    <Text style={[styles.dateText, {color: currentWeather.textColor}]}>
+                      {day.date}
+                    </Text>
                   </View>
 
                   <View style={styles.weekTextsPositions}>
@@ -95,13 +95,16 @@ const OtherDaysWeather = () => {
                       value={
                         `${Math.round(day.minTemp)} - ${Math.round(day.maxTemp)} °C`
                       }
+                      textColor={currentWeather.textColor}
                       icon="thermometer"
                     />
                     <View style={styles.weatherInfoWrapper}>
                       <MaterialCommunityIcons
                         name={day.weatherCode.icon as keyof typeof MaterialCommunityIcons.glyphMap}
-                        size={26} color="#fff" />
-                      <Text style={styles.wetherLabel}>{t(day.weatherCode.label)}</Text>
+                        size={26} color={currentWeather.textColor} />
+                      <Text style={[styles.wetherLabel, {color: currentWeather.textColor}]}>
+                        {t(day.weatherCode.label)}
+                      </Text>
                     </View>
                   </View>
                 </BlurView>
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
   title: {
     top: 40,
     left: 10,
-    color: '#fff',
+
     fontSize: 30,
     fontWeight: 500,
   },

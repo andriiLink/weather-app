@@ -14,7 +14,6 @@ export default function Page() {
   const { t } = useTranslation();
   const { weatherData, loading, errorMsg } = useWeatherContext();
   const {
-    language,
     windSpeed,
     humidity,
     temperatureMeasure,
@@ -25,6 +24,7 @@ export default function Page() {
     weatherData?.current.is_day ?? 1
   );
 
+  const textColor = currentWeather.textColor || '#fff';
   const humidityOrWindSpeedOn = humidity || windSpeed;
 
   if (loading) {
@@ -34,7 +34,7 @@ export default function Page() {
         style={styles.container}
       >
         <View style={styles.container}>
-          <Text style={styles.mainInfo}>{t('common.loading')}</Text>
+          <Text style={[styles.mainInfo, {color: textColor}]}>{t('common.loading')}</Text>
         </View>
       </LinearGradient>
     );
@@ -60,21 +60,21 @@ export default function Page() {
         <MaterialCommunityIcons name={currentWeather.icon as any} size={25} color="white" />
         <View style={styles.textWrapper}>
           {temperatureMeasure === TemperatureMeasures.Celsius ? (
-            <Text style={styles.tempText}>
+            <Text style={[styles.tempText, {color: textColor}]}>
               {Math.round(weatherData?.current.temperature_2m ?? 0)}°C
             </Text>
           ) : (
             temperatureMeasure === TemperatureMeasures.Fahrenheit ? (
-              <Text style={styles.tempText}>
+              <Text style={[styles.tempText, {color: textColor}]}>
                 {((Math.round(weatherData?.current.temperature_2m ?? 0)) * 1.8) + 32}°F
               </Text>
             ) : (
-              <Text style={styles.tempText}>
+              <Text style={[styles.tempText, {color: textColor}]}>
                 {(Math.round(weatherData?.current.temperature_2m ?? 0) + 273.15)}K
               </Text>
             )
           )}
-          <Text style={styles.conditionText}>{t(currentWeather.label)}</Text>
+          <Text style={[styles.conditionText, {color: textColor}]}>{t(currentWeather.label)}</Text>
         </View>
       </View>
       {humidityOrWindSpeedOn && (
@@ -100,6 +100,7 @@ export default function Page() {
                   <DetailItem
                     label={t('common.humidity')}
                     value={`${weatherData?.current.relative_humidity_2m}%`}
+                    textColor={textColor}
                     icon="water-percent"
                   />
                 )}
@@ -108,6 +109,7 @@ export default function Page() {
                   <DetailItem
                     label={t('common.wind')}
                     value={`${weatherData?.current.wind_speed_10m} ${t('common.km_h')}`}
+                    textColor={textColor}
                     icon="weather-windy"
                   />
                 )}
@@ -139,12 +141,10 @@ const styles = StyleSheet.create({
   tempText: {
     fontSize: 100,
     fontWeight: 200,
-    color: "white",
   },
 
   conditionText: {
     fontSize: 24,
-    color: "white",
     opacity: 0.8,
     textTransform: 'capitalize',
   },
