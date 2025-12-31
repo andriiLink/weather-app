@@ -6,12 +6,14 @@ import { BlurView } from 'expo-blur';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import Checkbox from 'expo-checkbox'
+import { useTranslation } from 'react-i18next';
 
 import useWeatherContext from '../../src/hooks/useWeatherContext';
 import useSettings from '../../src/hooks/useSettings';
 import { Languages, TemperatureMeasureType, TemperatureMeasures } from '@/src/types/settingsContextType';
 
 const Settings = () => {
+  const { t } = useTranslation();
   const [
     languageModalVisibility,
     setLanguageModalVisibility
@@ -53,7 +55,7 @@ const Settings = () => {
         style={styles.container}
       >
         <View>
-          <Text style={styles.mainText}>Налаштування</Text>
+          <Text style={styles.mainText}>{t('common.settings')}</Text>
         </View>
 
         <TouchableOpacity
@@ -61,7 +63,7 @@ const Settings = () => {
           style={styles.languageWrapper}>
           <BlurView style={styles.glassCard}>
             <View style={styles.languageContent}>
-              <Text style={styles.languageText}>Мова:</Text>
+              <Text style={styles.languageText}>{t('settings.language')}:</Text>
               {language === Languages.UA ? (
                 <Image source={require('../../assets/images/langUa.png')} style={styles.flagImg} />
               ) : (
@@ -83,7 +85,7 @@ const Settings = () => {
           >
             <View style={styles.modalWindow}>
               <BlurView style={styles.glassCard}>
-                <Text style={styles.mainText}>Обреріть мову:</Text>
+                <Text style={styles.mainText}>{t('settings.select_language')}:</Text>
                 <TouchableOpacity
                   onPress={() => {
                     handleChangeLanguage(Languages.UA);
@@ -112,10 +114,10 @@ const Settings = () => {
 
         <View style={styles.optionsWrapper}>
           <BlurView style={styles.glassCard}>
-            <Text style={styles.optionsToShowText}>Параметри показу:</Text>
+            <Text style={styles.optionsToShowText}>{t('settings.display_params')}:</Text>
 
             <View style={styles.windSpeedWrapper}>
-              <Text style={styles.optionsText}>Швидкість вітру:</Text>
+              <Text style={styles.optionsText}>{t('settings.wind_speed')}:</Text>
               <Checkbox
                 value={windSpeed}
                 onValueChange={handleToggleWindSpeed}
@@ -125,7 +127,7 @@ const Settings = () => {
             </View>
 
             <View style={styles.humidityWrapper}>
-              <Text style={styles.optionsText}>Вологість:</Text>
+              <Text style={styles.optionsText}>{t('common.humidity')}:</Text>
               <Checkbox
                 value={humidity}
                 onValueChange={handleToggleHumidity}
@@ -134,7 +136,7 @@ const Settings = () => {
               />
             </View>
 
-            <Text style={styles.optionsText}>Температура в:</Text>
+            <Text style={styles.optionsText}>{t('settings.temp_format')}:</Text>
             <SegmentedControl
               values={['°C', '°F', 'K']}
               selectedIndex={measureToIndex[temperatureMeasure as keyof typeof measureToIndex]}

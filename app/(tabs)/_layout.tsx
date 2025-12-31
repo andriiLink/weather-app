@@ -2,11 +2,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { Tabs } from "expo-router";
 import { ImageBackground, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
 import useWeatherContext from '../../src/hooks/useWeatherContext';
 
 export default function TabsLayout() {
+  const { t } = useTranslation();
   const { weatherData } = useWeatherContext();
   const currentWeather = getWeatherInterpretation(
     weatherData?.current.weather_code ?? 0,
@@ -36,7 +38,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="otherDaysWeather"
         options={{
-          title: 'Тиждень',
+          title: t('common.week'),
           tabBarIcon: ({ color, size }) =>
             <MaterialCommunityIcons
               name='calendar-range'
@@ -50,7 +52,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Сьогодні',
+          title: t('common.today'),
           tabBarIcon: ({ color, size }) =>
             <MaterialCommunityIcons
               name={currentWeather.icon as keyof typeof MaterialCommunityIcons.glyphMap}
@@ -63,7 +65,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Налаштування',
+          title: t('common.settings'),
           tabBarIcon: ({ color, size }) =>
             <MaterialCommunityIcons
               name="cog"

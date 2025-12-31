@@ -7,8 +7,10 @@ import { DetailItem } from '@/src/components/DetailItem';
 import { BlurView } from 'expo-blur';
 import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
 import { useWeatherContext } from '../../src/hooks/useWeatherContext';
+import { useTranslation } from 'react-i18next';
 
 const OtherDaysWeather = () => {
+  const { t } = useTranslation();
   const { weatherData } = useWeatherContext();
   const currentWeather = getWeatherInterpretation(
     weatherData?.current.weather_code ?? 0,
@@ -29,7 +31,7 @@ const OtherDaysWeather = () => {
 
   const chartData = weatherData?.daily.temperature_2m_max.map((temp, index) => ({
     value: Math.round(temp),
-    label: weatherData.daily.time[index].split('-')[2], // Беремо тільки число дня
+    label: weatherData.daily.time[index].split('-')[2],
   })) || [];
 
   return (
@@ -38,7 +40,7 @@ const OtherDaysWeather = () => {
       style={styles.container}
     >
       <View>
-        <Text style={styles.title}>Прогноз температури</Text>
+        <Text style={styles.title}>{t('weather.temp_forecast')}</Text>
 
         <LineChart
           data={chartData}
@@ -89,7 +91,7 @@ const OtherDaysWeather = () => {
 
                   <View style={styles.weekTextsPositions}>
                     <DetailItem
-                      label="Температура"
+                      label={t('weather.temperature')}
                       value={
                         `${Math.round(day.minTemp)} - ${Math.round(day.maxTemp)} °C`
                       }
@@ -99,7 +101,7 @@ const OtherDaysWeather = () => {
                       <MaterialCommunityIcons
                         name={day.weatherCode.icon as keyof typeof MaterialCommunityIcons.glyphMap}
                         size={26} color="#fff" />
-                      <Text style={styles.wetherLabel}>{day.weatherCode.label}</Text>
+                      <Text style={styles.wetherLabel}>{t(day.weatherCode.label)}</Text>
                     </View>
                   </View>
                 </BlurView>

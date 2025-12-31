@@ -1,4 +1,5 @@
 import { WeatherInterpretation } from '../types/weatherInterpretation';
+import { useTranslation } from 'react-i18next';
 
 export const getWeatherInterpretation = (code: number, isDay: number): WeatherInterpretation => {
   // turning isDay variable to 0 or 1 (it's already in that format but just to ensure) 
@@ -6,57 +7,57 @@ export const getWeatherInterpretation = (code: number, isDay: number): WeatherIn
 
   const interpretation: Record<number, WeatherInterpretation> = {
     0: { 
-      label: 'Ясно', 
+      label: 'weather.conditions.clear_sky', 
       icon: day ? 'weather-sunny' : 'weather-night',
       gradient: day ? ['#4facfe', '#00f2fe'] : ['#243b55', '#141e30']
     },
     1: { 
-      label: 'Переважно ясно', 
+      label: 'weather.conditions.mainly_clear', 
       icon: day ? 'weather-partly-cloudy' : 'weather-night-partly-cloudy',
       gradient: day ? ['#4facfe', '#00f2fe'] : ['#243b55', '#141e30']
     },
     2: { 
-      label: 'Мінлива хмарність', 
+      label: 'weather.conditions.partly_cloudy', 
       icon: 'weather-cloudy',
       gradient: day ? ['#50cc7f', '#f5d100'] : ['#09203f', '#537895']
     },
     3: { 
-      label: 'Хмарно', 
+      label: 'weather.conditions.cloudy', 
       icon: 'weather-cloudy',
       gradient: ['#757f9a', '#d7dde8']
     },
     45: { 
-      label: 'Туман', 
+      label: 'weather.conditions.fog', 
       icon: 'weather-fog',
       gradient: ['#3e5151', '#decba4']
     },
     48: { 
-      label: 'Паморозь', 
+      label: 'weather.conditions.drizzle', 
       icon: 'weather-fog',
       gradient: ['#3e5151', '#decba4']
     },
     51: { 
-      label: 'Легка мряка', 
+      label: 'weather.conditions.light_drizzle', 
       icon: 'weather-rainy',
       gradient: ['#6a11cb', '#2575fc']
     },
     61: { 
-      label: 'Невеликий дощ', 
+      label: 'weather.conditions.light_rain', 
       icon: 'weather-rainy',
       gradient: ['#00c6fb', '#005bea']
     },
     63: { 
-      label: 'Помірний дощ', 
+      label: 'weather.conditions.moderate_rain', 
       icon: 'weather-pouring',
       gradient: ['#203a43', '#2c5364']
     },
     71: { 
-      label: 'Невеликий сніг', 
+      label: 'weather.conditions.light_snow', 
       icon: 'weather-snowy',
       gradient: ['#e6e9f0', '#eef1f5']
     },
     95: { 
-      label: 'Гроза', 
+      label: 'weather.conditions.thunderstorm', 
       icon: 'weather-lightning',
       gradient: ['#0f0c29', '#302b63', '#24243e']
     }

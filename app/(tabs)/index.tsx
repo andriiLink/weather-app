@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View } from "react-native";
+import { useTranslation } from 'react-i18next';
 
 import { DetailItem } from '../../src/components/DetailItem';
 import { getWeatherInterpretation } from '../../src/utils/weatherInterpretation';
@@ -10,6 +11,7 @@ import useSettings from '@/src/hooks/useSettings';
 import { TemperatureMeasures } from '@/src/types/settingsContextType';
 
 export default function Page() {
+  const { t } = useTranslation();
   const { weatherData, loading, errorMsg } = useWeatherContext();
   const {
     language,
@@ -32,7 +34,7 @@ export default function Page() {
         style={styles.container}
       >
         <View style={styles.container}>
-          <Text style={styles.mainInfo}>LOADING...</Text>
+          <Text style={styles.mainInfo}>{t('common.loading')}</Text>
         </View>
       </LinearGradient>
     );
@@ -45,8 +47,8 @@ export default function Page() {
         style={styles.container}
       >
         <View>
-          <Text style={styles.mainInfo}>ERROR!!!</Text>
-          <Text style={styles.mainInfo}>Please, reload your App</Text>
+          <Text style={styles.mainInfo}>{t('errors.title')}</Text>
+          <Text style={styles.mainInfo}>{t('errors.restart_app')}</Text>
         </View>
       </LinearGradient>
     );
@@ -72,7 +74,7 @@ export default function Page() {
               </Text>
             )
           )}
-          <Text style={styles.conditionText}>{currentWeather.label}</Text>
+          <Text style={styles.conditionText}>{t(currentWeather.label)}</Text>
         </View>
       </View>
       {humidityOrWindSpeedOn && (
@@ -96,7 +98,7 @@ export default function Page() {
               <View>
                 {humidity && (
                   <DetailItem
-                    label="Вологість"
+                    label={t('common.humidity')}
                     value={`${weatherData?.current.relative_humidity_2m}%`}
                     icon="water-percent"
                   />
@@ -104,8 +106,8 @@ export default function Page() {
 
                 {windSpeed && (
                   <DetailItem
-                    label="Вітер"
-                    value={`${weatherData?.current.wind_speed_10m} км/год`}
+                    label={t('common.wind')}
+                    value={`${weatherData?.current.wind_speed_10m} ${t('common.km_h')}`}
                     icon="weather-windy"
                   />
                 )}
