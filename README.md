@@ -5,13 +5,13 @@
 ## Screenshots
 
 <p align="center">
-  <img src="./assets/ScreenshotMainUA.jpg" width="300" title="Main Screen UA">
-  <img src="./assets/ScreenshotSettingsUA.jpg" width="300" title="Settings">
-  <img src="./assets/ScreenshotForecastUA.jpg" width="300" title="Forecast & Charts UA">
-  <img src="./assets/ScreenshotMainEN.jpg" width="300" title="Main Screen EN">
-  <img src="./assets/ScreenshotSettingsEN.jpg" width="300" title="Settings EN">
-  <img src="./assets/ScreenshotForecastEN.jpg" width="300" title="Forecast & Charts EN">
-  <img src="./assets/ScreenshotSelectLang.jpg" width="300" title="Select language modal window">
+  <img src="./assets/images/ScreenshotMainUA.jpg" width="300" title="Main Screen UA">
+  <img src="./assets/images/ScreenshotSettingsUA.jpg" width="300" title="Settings">
+  <img src="./assets/images/ScreenshotForecastUA.jpg" width="300" title="Forecast & Charts UA">
+  <img src="./assets/images/ScreenshotMainEN.jpg" width="300" title="Main Screen EN">
+  <img src="./assets/images/ScreenshotSettingsEN.jpg" width="300" title="Settings EN">
+  <img src="./assets/images/ScreenshotForecastEN.jpg" width="300" title="Forecast & Charts EN">
+  <img src="./assets/images/ScreenshotSelectLang.jpg" width="300" title="Select language modal window">
 </p>
 
 ---
