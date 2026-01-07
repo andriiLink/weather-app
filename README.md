@@ -18,12 +18,12 @@
 
 ## Key Features
 
-* *** Real-time Geolocation:** Automatic weather updates based on the user's current coordinates.
-* *** Glassmorphism UI:** Implements `expo-blur` and `linear-gradient` to create a semi-transparent frosted glass effect.
-* *** Dynamic Data Visualization:** Interactive temperature charts for the 7-day forecast using `react-native-gifted-charts`.
-* *** Personalized Experience:** * **Content Toggle:** Choose which weather metrics (humidity, wind speed, etc.) to display.
-    * **Language Switching:** Full support for English and Ukrainian.
-* *** Persistent Storage:** Integration with **AsyncStorage** to remember user preferences (language and UI settings) even after the app is closed.
+* **Real-time Geolocation:** Automatic weather updates based on the user's current coordinates.
+* **Glassmorphism UI:** Implements `expo-blur` and `linear-gradient` to create a semi-transparent frosted glass effect.
+* **Dynamic Data Visualization:** Interactive temperature charts for the 7-day forecast using `react-native-gifted-charts`.
+* **Personalized Experience:** **Content Toggle:** Choose which weather metrics (humidity, wind speed, etc.) to display.
+* **Language Switching:** Full support for English and Ukrainian.
+* **Persistent Storage:** Integration with **AsyncStorage** to remember user preferences (language and UI settings) even after the app is closed.
 
 ---
 
@@ -34,7 +34,7 @@
 * **State Management:** React Context API (Global weather & settings state)
 * **Persistence:** `@react-native-async-storage/async-storage`
 * **API:** Open-Meteo API (WMO-compliant weather data)
-* **Graphics & UI:** * `expo-linear-gradient` for dynamic atmospheric backgrounds.
+* **Graphics & UI:** `expo-linear-gradient` for dynamic atmospheric backgrounds.
     * `expo-blur` for the frosted glass component library.
     * `@expo/vector-icons` (Material Community Icons).
 

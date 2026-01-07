@@ -40,24 +40,29 @@ const OtherDaysWeather = () => {
       style={styles.container}
     >
       <View>
-        <Text style={[styles.title, {color: currentWeather.textColor}]}>
+        <Text style={[styles.title, { color: currentWeather.textColor }]}>
           {t('weather.temp_forecast')}
         </Text>
 
         <LineChart
           data={chartData}
           height={150}
+
+          noOfSections={3}
+          stepHeight={50}
+
+          maxValue={10}
+
           thickness={3}
           color="#777"
+          textFontSize={16}
+          textShiftY={-10}
+          textShiftX={-5}
           hideRules
           hideYAxisText
           yAxisColor="transparent"
-
           showValuesAsDataPointsText
           textColor="white"
-          textFontSize={20}
-          textShiftY={-10}
-          textShiftX={10}
           curved
           dataPointsColor="#fff"
         />
@@ -84,7 +89,7 @@ const OtherDaysWeather = () => {
                   <View style={styles.reflection} />
 
                   <View>
-                    <Text style={[styles.dateText, {color: currentWeather.textColor}]}>
+                    <Text style={[styles.dateText, { color: currentWeather.textColor }]}>
                       {day.date}
                     </Text>
                   </View>
@@ -102,7 +107,7 @@ const OtherDaysWeather = () => {
                       <MaterialCommunityIcons
                         name={day.weatherCode.icon as keyof typeof MaterialCommunityIcons.glyphMap}
                         size={26} color={currentWeather.textColor} />
-                      <Text style={[styles.wetherLabel, {color: currentWeather.textColor}]}>
+                      <Text style={[styles.wetherLabel, { color: currentWeather.textColor }]}>
                         {t(day.weatherCode.label)}
                       </Text>
                     </View>

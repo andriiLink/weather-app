@@ -1,8 +1,6 @@
 import { WeatherInterpretation } from '../types/weatherInterpretation';
-import { useTranslation } from 'react-i18next';
 
 export const getWeatherInterpretation = (code: number, isDay: number): WeatherInterpretation => {
-  // turning isDay variable to 0 or 1 (it's already in that format but just to ensure) 
   const day = !!isDay;
 
   const interpretation: Record<number, WeatherInterpretation> = {
@@ -74,6 +72,5 @@ export const getWeatherInterpretation = (code: number, isDay: number): WeatherIn
     }
   }
 
-  // return iterpretation with appropriate code or with 0 by default
   return interpretation[code] || interpretation[0];
 };

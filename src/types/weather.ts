@@ -1,4 +1,3 @@
-// type for how our data about weather will look like
 export type WeatherDataType = {
   current: {
     temperature_2m: number;
@@ -15,7 +14,6 @@ export type WeatherDataType = {
   };
 }
 
-// type for using in weather context (for example for creating)
 export interface WeatherContextType {
   weatherData: WeatherDataType | null,
   loading: boolean,

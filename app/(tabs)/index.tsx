@@ -27,6 +27,18 @@ export default function Page() {
   const textColor = currentWeather.textColor || '#fff';
   const humidityOrWindSpeedOn = humidity || windSpeed;
 
+  const getFormattedTemperature = (celsius: number, measure: TemperatureMeasures) => {
+    const roundedCelsius = Math.round(celsius);
+
+    const conversions = {
+      [TemperatureMeasures.Celsius]: `${roundedCelsius}°C`,
+      [TemperatureMeasures.Fahrenheit]: `${Math.round(roundedCelsius * 1.8 + 32)}°F`,
+      [TemperatureMeasures.Kelvin]: `${(roundedCelsius + 273.15).toFixed(1)}K`,
+    };
+
+    return conversions[measure] || `${roundedCelsius}°C`;
+  };
+
   if (loading) {
     return (
       <LinearGradient
@@ -34,7 +46,7 @@ export default function Page() {
         style={styles.container}
       >
         <View style={styles.container}>
-          <Text style={[styles.mainInfo, {color: textColor}]}>{t('common.loading')}</Text>
+          <Text style={[styles.mainInfo, { color: textColor }]}>{t('common.loading')}</Text>
         </View>
       </LinearGradient>
     );
@@ -59,22 +71,15 @@ export default function Page() {
       <View style={styles.mainInfo}>
         <MaterialCommunityIcons name={currentWeather.icon as any} size={25} color="white" />
         <View style={styles.textWrapper}>
-          {temperatureMeasure === TemperatureMeasures.Celsius ? (
-            <Text style={[styles.tempText, {color: textColor}]}>
-              {Math.round(weatherData?.current.temperature_2m ?? 0)}°C
-            </Text>
-          ) : (
-            temperatureMeasure === TemperatureMeasures.Fahrenheit ? (
-              <Text style={[styles.tempText, {color: textColor}]}>
-                {((Math.round(weatherData?.current.temperature_2m ?? 0)) * 1.8) + 32}°F
-              </Text>
-            ) : (
-              <Text style={[styles.tempText, {color: textColor}]}>
-                {(Math.round(weatherData?.current.temperature_2m ?? 0) + 273.15)}K
-              </Text>
-            )
-          )}
-          <Text style={[styles.conditionText, {color: textColor}]}>{t(currentWeather.label)}</Text>
+          <Text style={[styles.tempText, { color: textColor }]}>
+            {getFormattedTemperature(
+              weatherData?.current.temperature_2m ?? 0, 
+              temperatureMeasure as TemperatureMeasures
+              )}
+          </Text>
+          <Text style={[styles.conditionText, { color: textColor }]}>
+            {t(currentWeather.label)}
+          </Text>
         </View>
       </View>
       {humidityOrWindSpeedOn && (
